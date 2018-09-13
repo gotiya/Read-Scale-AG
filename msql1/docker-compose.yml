@@ -10,8 +10,8 @@ version: '3'
 services:
   mysql10:
     build:
-        context: C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG\msql1
-        dockerfile: C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG\msql1\dockerfile
+        context: C:\gitrepo\mssql-docker\windows\examples\Read-Scale-AG\msql1
+        dockerfile: C:\gitrepo\mssql-docker\windows\examples\Read-Scale-AG\msql1\dockerfile
     environment:
       sa_password: "myP@$$w0rd"
       ACCEPT_EULA: "Y"
