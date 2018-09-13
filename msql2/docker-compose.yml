@@ -1,0 +1,26 @@
+# specify the compose file format
+# this depends on what version of docker is running
+version: '3'
+
+
+# define our services, all database containers
+# each section specifies a container... 
+# the dockerfile name and location...
+# port number & sa password
+services:   
+  mysql11:
+    build:
+        context: C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG\msql2
+        dockerfile: C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG\msql2\dockerfile
+    environment:
+      sa_password: "myP@$$w0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "15786:1433"
+    container_name:
+        mysql11
+    hostname: mysql11
+    volumes: 
+       - ./cvols:C:\sqldata
+    expose:
+       - "5022/tcp"

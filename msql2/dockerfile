@@ -1,0 +1,21 @@
+# building our new image from the microsft SQL 2017 image
+# escape=\
+
+FROM microsoft/mssql-server-windows-developer
+
+
+MAINTAINER gotiya
+
+# creating a directory within the container
+RUN powershell -Command "mkdir C:\\SQLServer"
+
+# copying the database files into the container
+# no file path for the files so they need to be in the same location as the dockerfile
+# copying multiple files within the same COPY statement
+
+
+COPY ["./dbs/test.mdf","./dbs/test_log.ldf","./dbs/test2.mdf","./dbs/test2_log.ldf","C:/Sqlserver/"] 
+
+# attach the databases into the SQL instance within the container
+# attach mulitple database files
+ENV attach_dbs="[{'dbName':'test','dbFiles':['C:\\\\SQLServer\\\\test.mdf','C:\\\\SQLServer\\\\test_log.ldf']},{'dbName':'test2','dbFiles':['C:\\\\SQLServer\\\\test2.mdf','C:\\\\SQLServer\\\\test2_log.ldf']}]"
