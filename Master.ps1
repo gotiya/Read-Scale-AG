@@ -18,8 +18,8 @@ docker exec -it mysql10 sqlcmd -Q "SET NOCOUNT ON; USE MASTER; create master key
 docker exec -it mysql11 sqlcmd -Q "SET NOCOUNT ON; USE MASTER; create master key encryption by password=N'myP@$$word'; create certificate [mysql11_cert] with subject=N'mysql11_cert'; create login [mysql10_login] with password=N'myP@$$w0rd'; create user [mysql10_user] for login [mysql10_login]
 ; backup certificate [mysql11_cert] to file=N'C:\sqldata\mysql11_cert.cer';"
 docker stop mysql10 mysql11
-Copy-Item "C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG\msql1\cvols\mysql10_cert.cer" -Destination "C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG\msql2\cvols\mysql10_cert.cer"
-Copy-Item "C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG\msql2\cvols\mysql11_cert.cer" -Destination "C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG\msql1\cvols\mysql11_cert.cer"
+Copy-Item "C:\gitrepo\mssql-docker\windows\examples\Read-Scale-AG\msql1\cvols\mysql10_cert.cer" -Destination "C:\gitrepo\mssql-docker\windows\examples\Read-Scale-AG\msql2\cvols\mysql10_cert.cer"
+Copy-Item "C:\gitrepo\mssql-docker\windows\examples\Read-Scale-AG\msql2\cvols\mysql11_cert.cer" -Destination "C:\gitrepo\mssql-docker\windows\examples\Read-Scale-AG\msql1\cvols\mysql11_cert.cer"
 docker start mysql10 mysql11
 Start-Sleep -s 10
 Write-Host "Creating the certificates"
@@ -49,4 +49,4 @@ Start-Sleep -s 10
 Write-Host "Restoring the databases on Secondary and creating AG"
 docker exec -it mysql11 sqlcmd -Q "use master; restore database [test] from disk = N'C:\sqldata\test.bak' with move N'test_data' to N'C:\sqldata\test_data.mdf', move N'test_log' to N'C:\sqldata\test_log.ldf',NOUNLOAD, norecovery,replace; ALTER AVAILABILITY GROUP [MyAG] JOIN WITH (CLUSTER_TYPE = NONE);ALTER AVAILABILITY GROUP [MYAG] GRANT CREATE ANY DATABASE"
 
-Set-Location -Path "C:\Users\Abhay Kanare\mssql-docker\windows\examples\Read-Scale-AG"
+Set-Location -Path "C:\gitrepo\mssql-docker\windows\examples\Read-Scale-AG"
